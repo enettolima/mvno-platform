@@ -1,0 +1,19 @@
+<div id="widget__{{ widget_function | raw }}__{{ widget_id | raw }}" class="grid-stack-item ui-draggable ui-resizable" data-gs-auto-position="true" data-gs-x="{{ x | raw }}" data-gs-y="{{ y | raw }}" data-gs-width="{{ width | raw }}" data-gs-height="{{ height | raw }}" data-custom-fn="{{ widget_function | raw }}" data-custom-id="{{ widget_id | raw }}">
+    <div class="grid-stack-item-content element-wrapper ui-draggable-handle">
+        <div class="naturalwidget-header">
+              <i class="fa {{ icon }} naturalwidget-icon"></i>
+              <span class="widget-title">{{ widget_title }}</span>
+              <span class="naturalwidget-ctrls" role="menu">
+                  <a class="button-icon button-min" data-placement="bottom" title="" rel="tooltip" href="#" data-original-title="Collapse">
+                      <i class="fa fa-minus "></i>
+                  </a>
+                  <a class="button-icon  button-close" data-placement="bottom" title="" rel="tooltip" href="javascript:void(0);" data-original-title="Delete">
+                      <i class="fa fa-times"></i>
+                  </a>
+              </span>
+        </div>
+        <div id="{{ widget_function }}__{{ widget_id }}" class="graph"  style="height:80%;">
+          <input type="hidden" class="functions" name="function_to_call[]" value="{{ widget_function | raw }}#{{ widget_id | raw }}">
+        </div>
+   </div>
+</div>

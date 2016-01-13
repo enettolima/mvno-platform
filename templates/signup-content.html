@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  {{ parent() }}
+  <!-- Login CSS -->
+  <link href="{{ path_to_theme }}css/natural-login.css" media="all" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+  <div id="login-box" class="form-box">
+    <div class="login-header"><img class="bar-logo" src="http://www.adplatoon.com/images/logo.png"/></div>
+      <form  data-disable="false" data-toggle="validator" data-id="customer_signup_form" id="customer_signup_form" name="signupform"  class="form-signin" role="form" method="POST" action="/modules/signup/">
+          <input name="fn" type="hidden" value="signup" data-original-title="" title="">
+          <input id="username" name="username" type="hidden" value="">
+
+          <div class="login-body bg-gray">
+            {% if error_message %}
+              <div class="bs-callout bs-callout-danger">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+                <h4>Error!</h4> {{ error_message }}
+              </div>
+            {% endif %}
+            <h3 class="dark-grey">Registration</h3>
+            <h6 class="sub-title">Register now to get your free account.</h3>
+
+            <span class="payment-errors"></span>
+              {% if errors is not null %}
+                    {% for error in errors %}
+                    <div class="alert alert-warning">
+                       <strong>Warning!</strong> {{error}}
+                     </div>
+                    {% endfor %}
+              {% endif %}
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" data-minlength="2" name="first_name" class="form-control" id="contact_first_name" value="{{data.first_name }}" data-error="The field first name is required." required>
+                <span class="help-block with-errors"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" data-minlength="2" name="last_name" class="form-control" id="contact_last_name" value="{{data.last_name }}" data-error="The field last name is required." required>
+              <span class="help-block with-errors"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Email Address</label>
+              <input id="email" type="email" name="email" class="form-control" id="contact_email" value="{{data.email }}" data-error="Invalid email." required>
+              <span class="help-block with-errors"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input type="password" data-minlength="5" name="password" class="form-control" id="fpassword" required>
+              <span class="help-block with-errors"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword">Repeat Password</label>
+              <input type="password" data-match="#fpassword" data-minlength="5" name="password2" class="form-control" id="lpassword"  data-match-error="Whoops, the password don't match" required>
+              <span class="help-block with-errors"></span>
+            </div>
+          </div>
+          <div class="login-footer">
+            <button class="btn bg-light-blue btn-block" type="submit"  onclick="button_submit()" >Sing Up for Free</button>
+          </div>
+      </form>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    <div class="margin text-center login-company">
+      <br />
+        <span>Powered by {{ company }}</span>
+      <br />
+    </div>
+  </div>
+  <script>
+      function button_submit() {
+        document.getElementById('username').value = document.getElementById('email').value;
+        $('#customer_signup_form').validator('validate');
+      }
+
+      $('#customer_signup_form').validator().on('submit', function (e) {
+        $(":submit").attr("disabled", true);
+        if (e.isDefaultPrevented()) {
+          // handle the invalid form...
+          $(":submit").attr("disabled", false);
+        } else {
+          // everything looks good with validation
+        }
+
+      })
+  </script>
+  {% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  {{ parent() }}
+  <!-- Login CSS -->
+  <link href="{{ path_to_theme }}css/natural-login.css" media="all" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+  <div id="login-box" class="form-box">
+    <div class="login-header bg-docs-gray"><img class="bar-logo" src="{{ path_to_theme }}images/logo.png"/></div>
+      <form class="form-signin" role="form" name="loginForm" id="loginForm" method="POST" action="proc_login.php">
+          <div class="login-body bg-gray">
+            {% if error_message %}
+              <div class="bs-callout bs-callout-danger">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+                <h4>Error!</h4> {{ error_message }}
+              </div>
+            {% endif %}
+            <div class="form-group">
+              <input type="text" placeholder="Username/Email" class="form-control" name="username">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password">
+            </div>
+            <div class="form-group">
+              <input type="checkbox" name="remember_me"> Remember me
+            </div>
+          </div>
+          <div class="login-footer">
+            <button class="btn bg-light-blue btn-block" type="submit">Sign me in</button>
+            <a href="modules/signup/" class="btn btn-success btn-block" role="button" type="register">Get an account</a>
+            <p><!-- <a href="reset_password.php">I forgot my password</a> --></p>
+          </div>
+      </form>
+
+    <div class="margin text-center login-company">
+      <br />
+        <span>Powered by {{ company }}</span>
+      <br />
+    </div>
+  </div>
+{% endblock %}

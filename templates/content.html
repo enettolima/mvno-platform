@@ -1,0 +1,19 @@
+<!-- Content header  -->
+<section class="content-header">
+  <h1>
+    {% block page_title %}
+      {{ page_title }}
+    {% endblock %}
+    <small>{% block page_subtitle %} {{ page_subtitle }} {% endblock %}</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-home"><a href="javascript:menu_navigation('dashboard_main', 'dashboard_home', 'dashboard')">Dashboard</a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  {% block content %}
+    {{ content|raw }}
+  {% endblock %}
+</section>

@@ -1,0 +1,215 @@
+<style>
+.tt-input{background-color: white !important;}
+.tt-menu, .gist {
+  text-align: left;
+}
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 396px;
+  height: 30px;
+  padding: 8px 12px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  width: 422px;
+  margin: 12px 0;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0097cf;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+</style>
+<!-- Content header  -->
+<section class="content-header">
+  <h1>
+    {% block page_title %}
+      {{ page_title }}
+    {% endblock %}
+    <small>{% block page_subtitle %} {{ page_subtitle }} {% endblock %}</small>
+  </h1>
+  <h4>{{ form_tips }}</h4>
+  <ol class="breadcrumb {{ hide_button }}">
+    <li class="breadcrumb-home"><a href="javascript:menu_navigation('dashboard_main', 'dashboard_home', 'dashboard')">Dashboard</a></li>
+  </ol>
+</section>
+
+<div class="panel-body table-responsive">
+<!-- Main content -->
+<section class="filters">
+      <div class="well well-lg">
+        {% block content1 %}
+          {{ content1|raw }}
+          <div class="">
+            <form id="form-default" name="form-default"  class="form-inline">
+              {% for key,value in fields %}
+                <input type="hidden" name="{{ key }}" id="{{ key }}" value="{{ value }}">
+              {% endfor %}
+
+              <div class="">
+                  <div class="col-xs-8 col-sm-2">
+                      <div class="input-group input-append date2">
+                          <input type="text" class="form-control" placeholder="Inicial Date" id="startdate" name="startdate" value="{{search.startdate}}" />
+                          <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="">
+                  <div class="col-xs-8 col-sm-2">
+                      <div class="input-group input-append date">
+                          <input type="text" class="form-control" placeholder="Final Date" id="enddate" name="enddate" value="{{search.enddate}}" />
+                          <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                  </div>
+              </div>
+
+            <div class="col-xs-8 col-sm-2">
+               <div id="remote" class="input-group input-append">
+                   <input class="form-control" type="text" placeholder="Customer Name" id="customer_name" name="customer_name" value="{{search.customer_name}}">
+                   <span class="input-group-addon add-on"><span class="glyphicon glyphicon-user"></span></span>
+               </div>
+            </div>
+            <div class="">
+              <button class="btn btn-success" type="button" onclick="javascript:process_information('form-default', 'customer_billing_manager_filter', 'customer')" name="_results">
+                <i class="fa fa-plus-circle"></i> Load Data
+              </button>
+            </div>
+            </form>
+          </div>
+        {% endblock %}
+      </div>
+</section>
+
+<div id="logcallgraph"></div>
+
+<section>
+<div class="panel panel-default ">
+  <div class="panel-body table-responsive">
+
+    {% if table_prefix %}
+      <p>{{ table_prefix|raw }}</p>
+    {% endif %}
+
+    {% if rows is empty %}
+      <p>{{ empty_message }}</p>
+    {% else %}
+
+      <table class="table table-striped table-hover">
+        {% if show_headers == true %}
+        <thead>
+          <tr>
+            {% for item in headers %}
+              <th class="{{ item.class }}">{{ item.display|raw }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        {% endif %}
+
+        <tbody>
+          {% for row, columns in rows %}
+            <tr data-row="{{ loop.index }}" data-info-id="{{ rows[row].row_id }}">
+            {% for key, column in columns if key != 'row_id' %}
+              <td data-info-field="{{ key }}">{{ column|raw }}</td>
+            {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+
+    {% endif %}
+
+    {# Pagination #}
+    {% if pager_items %}
+      <ul class="pagination pagination-sm pull-right">
+      {% for item in pager_items%}
+        <li class={{ item.class }}>{{ item.link|raw }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+
+  </div>
+</div>
+</section>
+</div>
+
+<script>
+
+var customers = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('customer_name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: '/api/typeahead/customers/macro',
+  remote: {
+    url: '/api/typeahead/customers/%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
+$('#remote .form-control').typeahead(null, {
+  name: 'id',
+  display: 'customer_name',
+  source: customers
+});
+
+ $(function() {
+   $( "#startdate" ).datepicker();
+ });
+ $(function() {
+   $( "#enddate" ).datepicker();
+ });
+ </script>

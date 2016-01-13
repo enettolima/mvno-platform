@@ -1,0 +1,77 @@
+{% extends 'content.html' %}
+
+{% block page_title %}
+  {{ page_title }}
+{% endblock %}
+
+{% block page_subtitle %}
+  {{ page_subtitle }}
+{% endblock %}
+
+
+{% block content %}
+<div class="panel panel-default ">
+  <div class="panel-body table-responsive">
+
+    <div class="vertical-align-middle">
+
+      {# Table Form - Search and Helper form to send additional parameters #}
+      <form id="{{ function }}_table_info" name="{{ function }}_table_info" role= "form" class="form table-info pull-left" action="javascript:process_information('{{ function }}_table_info', '{{ function }}_search', '{{ module }}',  null, null, null)">
+        <input name="sort" type="hidden"  value="{{ sort }}" />
+        <input name="page" type="hidden"  value="{{ page }}" />
+        {% if show_search %}
+          <div class="input-group input-group-sm">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input class="form-control" name="search" type="text" placeholder="Search" value="{{ search }}" />
+          </div>
+        {% endif %}
+      </form>
+
+      {% if table_prefix %}
+        <p>{{ table_prefix|raw }}</p>
+      {% endif %}
+
+    </div>
+    
+    {% if rows is empty %}
+      <p>{{ empty_message }}</p>
+    {% else %}
+
+      <table class="table table-striped table-hover">
+        {% if show_headers == true %}
+        <thead>
+          <tr>
+            {% for item in headers %}
+              <th class="{{ item.class }}">{{ item.display|raw }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        {% endif %}
+
+        <tbody>
+          {% for row, columns in rows %}
+            <tr data-row="{{ loop.index }}" data-info-id="{{ rows[row].row_id }}">
+            {% for key, column in columns if key != 'row_id' %}
+              <td data-info-field="{{ key }}">{{ column|raw }}</td>
+            {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+
+    {% endif %}
+
+    {# Pagination #}
+    {% if pager_items %}
+      <ul class="pagination pagination-sm pull-right">
+      {% for item in pager_items%}
+        <li class={{ item.class }}>{{ item.link|raw }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

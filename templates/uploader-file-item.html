@@ -1,0 +1,11 @@
+<li class="file-item">
+  {% if preview %}
+    <img src="{{ preview_uri }}" class="img-thumbnail" />
+    <br />
+  {% endif %}
+  <span class="file-name">{{ filename }}</span>
+  <a id="file-item-{{ id }}" class="file-delete" data-info-id="{{ id }}" title="Delete" onClick="uploader_remove_file({{ id }}, {{ field_id }});">
+    <i class="fa fa-trash-o"></i>
+  </a>
+  <input name="{{ field_name }}[]" class="hide" type="checkbox" checked="checked" value="{{ id }}" />
+</li>

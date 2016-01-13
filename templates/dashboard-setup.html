@@ -1,0 +1,20 @@
+<!-- Setup Widget form  -->
+<div class="demo">
+    <span id="demo-setting">
+        <i class="fa fa-cog txt-color-blueDark"></i>
+    </span>
+    <form id="dashboard-setup-form" name="dashboard-setup-form">
+        <legend class="no-padding margin-bottom-10">{{ title }}</legend>
+        <section>
+            {% for input in inputs %}
+                <label>
+                    <input class="checkbox style-0" type="checkbox"
+                    onclick="dashboard_setup({{ input.id|raw }},'{{ input.fn|raw }}')" value="{{ input.id|raw }}" type="checkbox"
+                    name="widget[{{ input.id|raw }}]" id="input_widget_{{ input.id|raw }}" {{ input.check }}>
+                    <span>{{ input.title }}</span>
+                </label>
+            {% endfor %}
+            <input type="hidden" name="dashboard_type" value="{{ type }}" />
+        </section>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+{% if first == true %}
+  <ul class="sidebar-menu">
+{% else %}
+  <ul class="treeview-menu">
+{% endif %}
+  {% for link in links %}
+    {% if link.children %}
+      <li data-menu-id="{{ link.id }}" class="treeview">
+        <a href="#">
+          {% if link.icon_class %}
+            <i class="{{ link.icon_class }}"></i>
+          {% else %}
+            <i class="fa fa-angle-double-right"></i>
+          {% endif %}
+          {{ link.label }}
+          <i class="fa pull-right fa-angle-left"></i>
+        </a>
+        {% include 'menu.html' with {'links': link.children, 'first': false} %}
+      </li>
+    {% else %}
+      <li data-menu-id="{{ link.id }}" {% if loop.index0 == 0 %}class="active"{% endif %}>
+        <a id="menu-item-{{ link.id }}" href="javascript:menu_navigation({{ link.id }}, '{{ link.func }}', '{{ link.module }}')">
+          {% if link.icon_class %}
+            <i class="{{ link.icon_class }}"></i>
+          {% else %}
+            <i class="fa fa-angle-double-right"></i>
+          {% endif %}
+          {{ link.label }}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

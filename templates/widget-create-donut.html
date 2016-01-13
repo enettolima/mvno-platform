@@ -1,0 +1,169 @@
+<!-- Iconpicker -->
+<link href="/lib/js/iconpicker/css/fontawesome-iconpicker.min.css" rel="stylesheet" type="text/css" />
+
+<section class="content-header">
+<h1>
+  {% block page_title %}
+    {{ page_title }}
+  {% endblock %}
+  <small>{% block page_subtitle %} {{ page_subtitle }} {% endblock %}</small>
+</h1>
+<h4>{{ form_tips }}</h4>
+<ol class="breadcrumb {{ hide_button }}">
+  <li class="breadcrumb-home"><a href="javascript:menu_navigation('dashboard_main', 'dashboard_home', 'dashboard')">Dashboard</a></li>
+</ol>
+</section>
+
+<div class="panel-body table-responsive">
+  <div class="panel panel-default ">
+    <div class="container">
+     <legend>
+       <div class="btn-group">
+          <button type="button" class="btn btn-primary" onclick="javascript:process_information('', 'dashboard_widgets_graph_line_template', 'dashboard_widgets', null, null, null, null, null, 'POST')">Line</button>
+          <button type="button" class="btn btn-primary" onclick="javascript:process_information('', 'dashboard_widgets_graph_area_template', 'dashboard_widgets', null, null, null, null, null, 'POST')">Area</button>
+          <button type="button" class="btn btn-primary" onclick="javascript:process_information('', 'dashboard_widgets_graph_bar_template', 'dashboard_widgets', null, null, null, null, null, 'POST')">Bar</button>
+          <button type="button" class="btn btn-selected" onclick="javascript:process_information('', 'dashboard_widgets_graph_donut_template', 'dashboard_widgets', null, null, null, null, null, 'POST')">Donut</button>
+          <button type="button" class="btn btn-primary" onclick="javascript:process_information('', 'dashboard_widgets_graph_temp_template', 'dashboard_widgets', null, null, null, null, null, 'POST')">Template</button>
+       </div>
+     </legend>
+       <form id="form_chart" data-disable="false" data-toggle="validator" data-id="customer_signup_form" name="form_chart" method="POST" class="">
+               <input name="graph_type" type="hidden" value="Donut">
+               <input name="widget_function" type="hidden" value="render_widget_graph">
+               <input name="enabled" type="hidden" value="1">
+               <legend>Donut Graphic</legend>
+               <div class="form-group col-lg-4">
+                 <label>Title</label>
+                 <input type="text" data-minlength="3" name="title" class="form-control" id="title" value="Customers / Month" data-error="The field company is required." data-toggle="tooltip" data-placement="top" title="This is the widget title." required>
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-4">
+                 <label>Description</label>
+                 <input type="text" data-minlength="3" name="description" class="form-control" id="description" value="This is an description example." data-error="The field is required." data-toggle="tooltip" data-placement="top" title="This is just an description of the widget to inform the user what is the widget about." required>
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-4">
+                 <label>Subject</label>
+                 <input type="text" data-minlength="3" name="subject" class="form-control" id="subject" value="" data-error="The field is required.">
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-4">
+                 <label>Class</label>
+                 <input type="text" data-minlength="3" name="class" class="form-control" id="class" value="ui-state-default" data-error="The field is required." required>
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-2">
+                 <label for="sel1">Icon</label>
+                 <div class="input-group iconpicker-container">
+                       <input data-placement="bottomRight" name="icon" id="iconpicker" class="form-control icp icp-auto iconpicker-element iconpicker-input" value="fa-archive" type="text"  data-toggle="tooltip" data-placement="top" title="Select the icon that will appear at the widget box." >
+                       <span class="input-group-addon"><i class="fa fa-archive"></i></span>
+                 </div>
+               </div>
+               <div class="form-group col-lg-2">
+                 <label>Auto Reload</label>
+                 <input type="num" data-minlength="1" name="update_seconds" class="form-control" id="update_seconds" value="0" data-error="The field is required."  data-toggle="tooltip" data-placement="top" title="This is the number of seconds to auto reload the graphic. If you set 0 it will turn the auto reload off." required>
+                 <span class="help-block with-errors"></span>
+               </div>
+
+               <legend>Grid Options</legend>
+               <div class="form-group col-lg-2">
+                 <label>data-gs-x</label>
+                 <input type="num" data-minlength="1" name="data_gs_x" class="form-control" id="data_gs_x" value="0" data-error="The field is required." data-toggle="tooltip" data-placement="top" title="data-gs-x, data-gs-y - element position;  data-gs-width, data-gs-height - element size;" required>
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-2">
+                 <label>data-gs-y</label>
+                 <input type="num" data-minlength="1" name="data_gs_y" class="form-control" id="data_gs_y" value="0" data-error="The field is required." data-toggle="tooltip" data-placement="top" title="data-gs-x, data-gs-y - element position;  data-gs-width, data-gs-height - element size;" required>
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-2">
+                 <label>data-gs-width</label>
+                 <input type="num" data-minlength="1" name="data_gs_width" class="form-control" id="data_gs_width" value="4" data-error="The field is required." data-toggle="tooltip" data-placement="top" title="data-gs-x, data-gs-y - element position;  data-gs-width, data-gs-height - element size;" required>
+                 <span class="help-block with-errors"></span>
+               </div>
+               <div class="form-group col-lg-2">
+                 <label>data-gs-height</label>
+                 <input type="num" data-minlength="1" name="data_gs_height" class="form-control" id="data_gs_height" value="3" data-error="The field is required." data-toggle="tooltip" data-placement="top" title="data-gs-x, data-gs-y - element position;  data-gs-width, data-gs-height - element size;" required>
+                 <span class="help-block with-errors"></span>
+               </div>
+
+
+               <legend>Response when there is no Data</legend>
+               <div class="form-group col-lg-12">
+                 <label>No Data Response</label>
+                 <input type="text" data-minlength="3" name="response_nodata" class="form-control" id="response_nodata" value="<div><div class=''medium-number''>No Data</div><div class=''dash-click-list''>There is no data to show right now.</div></div>" data-error="The field is required." data-toggle="tooltip" data-placement="top" title="This is your html code to show when the query does not return data and the graphic will be empty. If this is set, than it will show instead of empty graphic." required>
+                 <span class="help-block with-errors"></span>
+               </div>
+
+               <legend>Query ( <a target="_new" href='http://morrisjs.github.io/morris.js/donut.html'>Morris Donut Chart Documentation</a>)</legend>
+               <div class="form-group col-lg-13">
+                 <label>Construct your query</label>
+                 <input type="text" data-minlength="3" name="query" class="form-control" id="query" value="select a as value, name as label from natural_dummy_data group by month(date)" data-error="The field is required." data-toggle="tooltip" data-placement="top" title="The data to plot. This is an array of objects, containing label and value attributes corresponding to the labels and sizes of the segments of the donut chart." required>
+                 <span class="help-block with-errors"></span>
+               </div>
+                <section id="morris_data">
+                  <div id="row"               gs-morris-type="text" gs-morris-readonly="true" gs-morris-size="2"  gs-morris-required="true" gs-morris-validation="" data-minlength="1" data-morris-maxlength="1" class="row">
+                  </div>
+                  <div id="colors"            gs-morris-type="color"  gs-morris-size="2" gs-morris-required="true" gs-morris-validation="" data-minlength="1" data-morris-maxlength="1" class="row">
+                  </div>
+                </section>
+
+                <legend></legend>
+                <input type="submit" class="btn btn-success" value="Create Widget" data-original-title="" title="">
+          </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="lib/js/iconpicker/js/fontawesome-iconpicker.min.js"></script>
+<script> $("input[id*='_input_']").prop('disabled', false);
+
+  $('#form_chart').validator().on('submit', function (e) {
+    $(":submit").attr("disabled", true);
+    if (e.isDefaultPrevented()) {
+      // handle the invalid form...
+      $(":submit").attr("disabled", false);
+    } else {
+      // Prevent the form from submitting with the default action
+      e.preventDefault();
+      // everything looks good with validation
+      process_information('form_chart', 'dashboard_widgets_create_form_submit', 'dashboard_widgets', null, null, null, null, null, 'POST');
+    }
+  })
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF'.split('');
+      var color = '#';
+      for (var i = 0; i < 6; i++ ) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+     }
+
+     function shadeColor2(color, percent) {
+        var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+        return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+     }
+
+    //will check if already have query and place fields
+    $( document ).ready(function() {
+      $('.colorpick').colorpicker();
+      $('[data-toggle="tooltip"]').tooltip()
+      $('.icp-auto').iconpicker();
+      $('.icp-dd').iconpicker({
+          //title: 'Dropdown with picker',
+          //component:'.btn > i'
+      });
+
+      $('.icp-glyphs').iconpicker({
+          title: 'Prepending glypghicons',
+          icons: $.merge(['glyphicon-home', 'glyphicon-repeat', 'glyphicon-search',
+              'glyphicon-arrow-left', 'glyphicon-arrow-right', 'glyphicon-star'], $.iconpicker.defaultOptions.icons),
+          fullClassFormatter: function(val){
+              if(val.match(/^fa-/)){
+                  return 'fa '+val;
+              }else{
+                  return 'glyphicon '+val;
+              }
+          }
+      });
+    });
+  </script>

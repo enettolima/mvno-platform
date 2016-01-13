@@ -1,0 +1,77 @@
+
+/**
+ * Login
+ */
+html, body {
+  height: 100%;
+}
+.login {
+  background: #222;
+}
+.form-box {
+  width: 360px;
+  margin: 90px auto 0 auto;
+}
+.form-box .login-header {
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: inset 0px -3px 0px rgba(0, 0, 0, 0.2);
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 300;
+  color: #fff;
+}
+.form-box .login-body {
+  background: #eaeaec !important;
+}
+.form-box .login-body,
+.form-box .login-footer {
+  padding: 10px 20px;
+  background: #fff;
+  color: #444;
+}
+.form-box .login-body > .form-group,
+.form-box .footer > .form-group {
+  margin-top: 20px;
+}
+.form-box .login-body > .form-group > input,
+.form-box .login-footer > .form-group > input {
+  border: #fff;
+}
+.form-box .login-body > .btn,
+.form-box .login-footer > .btn {
+  margin-bottom: 10px;
+}
+.form-box .login-footer {
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-topleft: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-box .login-company {
+  color: #444;
+}
+@media (max-width: 767px) {
+  .form-box {
+    width: 90%;
+  }
+}

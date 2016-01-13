@@ -1,0 +1,40 @@
+<li class="dropdown user user-menu">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="glyphicon glyphicon-user"></i>
+    <span>{{ user_full_name }}<i class="caret"></i></span>
+  </a>
+  <ul class="dropdown-menu">
+    <!-- User image -->
+    <li class="user-header bg-blue">
+      <p>
+        {% if avatar %}
+          <img width="60" height="60" src="{{ avatar }}" class="img-circle" /><br/>
+        {% endif %}
+        {{ user_full_name }} - {{ username }}
+        <small>{{ project_title }} - {{ version }}</small>
+        <small>{{ actual_date }}</small>
+      </p>
+    </li>
+    <!-- Menu Body -->
+    <!--<li class="user-body">
+      <div class="col-xs-4 text-center">
+        <a href="#">Colors</a>
+      </div>
+      <div class="col-xs-4 text-center">
+        <a href="#">Item</a>
+      </div>
+      <div class="col-xs-4 text-center">
+        <a href="#">Item</a>
+      </div>
+    </li>-->
+    <!-- Menu Footer-->
+    <li class="user-footer">
+      <div class="pull-left">
+        <a href="javascript:menu_navigation('c_dashboard_main', 'view_customer_info', 'customer')" class="btn btn-default btn-flat">My Account</a>
+      </div>
+      <div class="pull-right">
+        <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>
+      </div>
+    </li>
+  </ul>
+</li>

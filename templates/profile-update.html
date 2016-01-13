@@ -1,0 +1,154 @@
+<!-- Content header  -->
+<section class="content-header">
+  <h1>
+    {% block page_title %}
+      {{ page_title }}
+    {% endblock %}
+    <small>{% block page_subtitle %} {{ page_subtitle }} {% endblock %}</small>
+  </h1>
+  <h4>{{ form_tips }}</h4>
+  <ol class="breadcrumb {{ hide_button }}">
+    <li class="breadcrumb-home"><a href="javascript:menu_navigation('dashboard_main', 'dashboard_home', 'dashboard')">Dashboard</a></li>
+  </ol>
+</section>
+
+<div class="panel-body table-responsive">
+<!-- Main content -->
+<section class="profile">
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+    <form  data-disable="false" data-toggle="validator" data-id="customer_signup_form" id="customer_signup_form" name="customer_signup_form" method="POST" action=""  class="in_modal">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <span class="payment-errors"></span>
+          <legend>Account Profile</legend>
+          <div class="form-group col-lg-4">
+              <label>First Name</label>
+              <input type="text" data-minlength="2" name="contact_first_name" class="form-control" id="contact_first_name" value="{{data.contact_first_name }}" data-error="The field first name is required." required>
+              <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <label>Last Name</label>
+            <input type="text" data-minlength="2" name="contact_last_name" class="form-control" id="contact_last_name" value="{{data.contact_last_name }}" data-error="The field last name is required." required>
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <label>Company</label>
+            <input type="text" data-minlength="3" name="customer_name" class="form-control" id="customer_name" value="{{data.customer_name }}" data-error="The field company is required." required>
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-3">
+            <label>Phone Number</label>
+            <input type="num" pattern="^[0-9]*$" data-minlength="10"  name="phone_number" class="form-control" id="phone_number" value="{{data.phone_number }}" data-error="Invalid phone number." required>
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label>Email Address</label>
+            <input type="email" name="contact_email" class="form-control" id="contact_email" value="{{data.contact_email }}" data-error="Invalid email." required>
+            <span class="help-block with-errors"></span>
+          </div>
+          <legend>Account Address</legend>
+          <div class="form-group col-lg-5">
+            <label>Address</label>
+            <input type="text" data-minlength="3" name="address" class="form-control" id="address" value="{{data.address }}" data-error="The field address is required." required>
+            <span class="help-block with-errors"></span>
+          </div>
+          <div class="form-group col-lg-3">
+            <label>City</label>
+            <input type="text" data-minlength="3" name="city" class="form-control" id="city" value="{{data.city}}" data-error="The field city is required." required>
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-2">
+            <label>State</label>
+            <input type="text" data-minlength="2" name="state" class="form-control" id="state" value="{{data.state }}" data-error="The field state is required." required>
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-2">
+            <label>Zip</label>
+            <input type="num" pattern="^[0-9]*$" data-minlength="5" name="zip" class="form-control" id="zip" value="{{data.zip }}" data-error="The field zipcode is required." required>
+            <span class="help-block with-errors"></span>
+          </div>
+          <legend>Payment Information</legend>
+          <div class="form-group col-lg-4">
+            <label>Card Number</label>
+            <input type="num" data-minlength="16" data-stripe="number" class="form-control" name="cardnumber" id="cardnumber" value="{{data.cardnumber }}" data-error="The field Card Number is required.">
+            <span class="help-block with-errors"></span>
+          </div>
+          <div class="form-group col-lg-3">
+            <label>Expiration Year</label>
+            <input type="num" pattern="^[0-9]*$" data-minlength="4" data-stripe="exp-year" class="form-control" name="cardnumber_year" id="cardnumber_year" value="{{data.cardnumber_year}}" data-error="The field Expiration Year is required.">
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-3">
+            <label>Expiration Month</label>
+            <input type="num" pattern="^[0-9]*$" data-minlength="1" data-stripe="exp-month" class="form-control" name="cardnumber_month"  id="cardnumber_month" value="{{data.cardnumber_month }}" data-error="The field Expiration Month is required.">
+            <span class="help-block with-errors"></span>
+          </div>
+
+          <div class="form-group col-lg-2">
+            <label>CVC</label>
+            <input type="num" data-minlength="3" data-stripe="cvc" class="form-control" name="cardnumber_cvc" id="cardnumber_cvc" value="{{data.cardnumber_cvc }}" data-error="The field CVC is required.">
+            <span class="help-block with-errors"></span>
+          </div>
+          <div class="form-group col-lg-12">
+                <input type="submit" class="btn btn-primary" onclick="button_submit({{plan.id}})" value="Update Account" data-original-title="" title="">
+          </div>
+        </div>
+</form>
+</section>
+</div>
+
+<script>
+      Stripe.setPublishableKey('pk_test_XQJczjfWqPIasM1S8WgAAvFh');
+      function button_submit(plan_id) {
+        $('#customer_signup_form').validator('validate');
+      }
+
+      $('#customer_signup_form').validator().on('submit', function (e) {
+        $(":submit").attr("disabled", true);
+        if (e.isDefaultPrevented()) {
+          // handle the invalid form...
+          $(":submit").attr("disabled", false);
+        } else {
+          // Prevent the form from submitting with the default action
+          e.preventDefault();
+          // everything looks good with validation, call stripe now!
+          if (document.getElementById('cardnumber').value !== "{{data.cardnumber }}"){
+              Stripe.card.createToken($('#customer_signup_form'), stripeResponseHandler);
+          } else {
+            //var $form = $('#customer_signup_form');
+            $(":submit").attr("disabled", false);
+            process_information('customer_signup_form', 'customer_profile_edit_form_submit', 'customer', null, null, null, null, null, 'POST');
+            //$form.get(0).submit();
+          }
+        }
+
+      })
+
+      function stripeResponseHandler(status, response) {
+        var $form = $('#customer_signup_form');
+
+        if (response.error) {
+          // Show the errors on the form
+          $form.find('.payment-errors').text(response.error.message);
+          $(":submit").attr("disabled", false);
+        } else {
+          // response contains id and card, which contains additional card details
+          var token = response.id;
+          // Insert the token into the form so it gets submitted to the server
+          $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+          // and submit
+          $(":submit").attr("disabled", false);
+          process_information('customer_signup_form', 'customer_profile_edit_form_submit', 'customer', null, null, null, null, null, 'POST');
+          //$form.get(0).submit();
+        }
+      };
+  </script>

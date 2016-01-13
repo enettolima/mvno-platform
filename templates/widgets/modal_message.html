@@ -1,0 +1,9 @@
+<style>
+.modal-body {background-color: #0f8845;color: white;width:100%;height:100%;padding:10px;}
+</style>
+{% for row in rows %}
+    <div class="modal-body">
+           <H2>Dear {{ row.name }},</H2>
+           <h4>You have to make payment until {{ row.payday}}. If no payment is made your account will be suspended.</h4>
+    </div>
+{% endfor %}

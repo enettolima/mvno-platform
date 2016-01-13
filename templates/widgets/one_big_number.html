@@ -1,0 +1,13 @@
+<style>
+.modal-body {background-color: #0f8845;color: white;width:100%;height:100%;padding:10px;}
+.modal-body .medium-number {color:white;font-size:36px;}
+.modal-body a {color:white;}
+
+</style>
+{% for row in rows %}
+    <div class="modal-body">
+    <div>
+      <div class="medium-number">{{ row.number }}</div><div class="dash-click-list"><a href="{{row.link}}">{{row.linktext}}</a></div>
+    </div>
+    </div>
+{% endfor %}

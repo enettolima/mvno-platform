@@ -1,0 +1,30 @@
+# Igreno Mac OS files
+.DS_Store
+
+#Ignore Netbeans paths
+nbprojects/
+
+#Ignore default Natural files
+bootstrap.dev.php
+compilation_cache/
+
+#Ignore komodo files
+Natural.komodoproject
+
+#Ignore libs installed with composer
+vendor/
+composer.lock
+
+#Ignore vagrant auto-generated files
+.vagrant/machines
+
+#Ignore caches and stuff that needs to be rebuilt
+api/cache/*
+
+#Exceptions that shouldn't be ignore
+!api/cache/readme.md
+!.gitignore
+
+#temporary dev ignores
+test.php
+test_api.php

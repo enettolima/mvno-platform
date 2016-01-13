@@ -1,0 +1,155 @@
+{% extends modal ? 'modal.html' : 'content.html' %}
+
+{% block page_title %}
+  {{ page_title }}
+{% endblock %}
+
+{% block page_subtitle %}
+  {{ page_subtitle }}
+{% endblock %}
+
+{% block content %}
+  {% if not(modal) %}
+  <div class="panel panel-default">
+    <div class="panel-body">
+  {% endif %}
+      {{ content|raw }}
+
+      <form data-id="{{ form.id }}" id="{{ form.form_id }}" name="{{ form.form_name }}" method="{{ form.form_method }}" action="{{ form.form_action }}" onsubmit="{{ form.form_onsbumit }}" class="form-horizontal {{ form.form_class }}">
+
+        {% for key, fieldset in fieldsets %}
+
+          {% if key != 'blank' %}
+          <fieldset data-id="{{ fieldset.id }}" name="{{ fieldset.name }}" id="{{ fieldset.name }}" class="{{ fieldset.css_class }}">
+            <legend>{{ fieldset.label }}</legend>
+          {% endif %}
+
+          {% for field in fieldset.fields %}
+
+            {% if field.html_type == 'hidden' %}
+              <input type="hidden" data-id="{{ field.id }}" name="{{ field.field_id }}" id="{{ field.field_id }}" class="form-control form-hidden" value="{{ field.def_val }}" {{ field.html_options }}>
+            {% else %}
+              <div class="form-group field-type-{{ field.html_type }}" {% if field.condition %} data-condition="{{ field.condition }}" {% endif %}>
+
+                {% if field.def_label %}
+                  <label class="col-sm-3 control-label">{% if field.required == true %}<span class="field-required">*</span>{% endif %} {{ field.def_label }}</label>
+
+                  <div class="col-sm-8">
+                {% else %}
+
+                  <div class="col-sm-8 col-sm-offset-3">
+
+                {% endif %}
+
+                  {{ field.prefix }}
+
+                  {# message #}
+                  {% if field.html_type == 'message' %}
+                    <p data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="{{ field.css_class }}" {{ field.html_options }} onClick="{{ field.click }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}"> {{ field.def_val }} </p>
+                  {% endif %}
+
+                  {# readonly #}
+                  {% if field.html_type == 'readonly' %}
+                    <input type="text" data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="form-control form-readonly {{ field.css_class }}" value="{{ field.def_val }}" {{ field.html_options }} readonly onClick="{{ field.click }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>
+                  {% endif %}
+
+                  {# text #}
+                  {% if field.html_type == 'text' %}
+                    <input type="text" data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="form-control form-text {{ field.css_class }}" value="{{ field.def_val }}" {{ field.html_options }} onClick="{{ field.click }}" onChange="{{ field.onchange }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>
+                  {% endif %}
+
+                  {# password #}
+                  {% if field.html_type == 'password' %}
+                    <input type="password" data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="form-control form-password {{ field.css_class }}" value="{{ field.def_val }}" {{ field.html_options }} onClick="{{ field.click }}" onChange="{{ field.onchange }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>
+                  {% endif %}
+
+                  {# textarea #}
+                  {% if field.html_type == 'textarea' %}
+                    <textarea data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="form-control form-textarea {{ field.css_class }}" {{ field.html_options }} onClick="{{ field.click }}" onChange="{{ field.onchange }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>{{ field.def_val }}</textarea>
+                  {% endif %}
+
+                  {# select #}
+                  {% if field.html_type == 'list' %}
+                    <select data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="form-control form-select {{ field.css_class }}"  {{ field.html_options }} onClick="{{ field.click }}" onChange="{{ field.onchange }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>
+                      {% for option in field.options %}
+                         <option value="{{ option.value }}" {{ option.status }}>{{ option.label }}</option>
+                      {% endfor %}
+                    </select>
+                    {% if field.html_options != 'multiple' %}
+                      <i></i>
+                    {% endif %}
+                  {% endif %}
+
+                  {# checkbox #}
+                  {% if field.html_type == 'checkbox' %}
+                    {% for checkbox_key, option in field.options %}
+                    <div class="checkbox form-checkbox" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ tooltip }}" {% endif %}>
+                      <label for="{{ field.field_id }}-{{ checkbox_key }}">
+                        <input type="checkbox" data-id="{{ field.id }}-{{ checkbox_key }}" name="{{ field.field_name }}[]" id="{{ field.field_id }}-{{ checkbox_key }}" class="{{ field.css_class }}" value="{{ option.value }}" {{ option.status }} {{ field.html_options }} onClick="{{ field.click }}" onChange="{{ field.onchange }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}">
+                        {{ option.label }}
+                      </label>
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+
+                  {# radio #}
+                  {% if field.html_type == 'radio' %}
+                    {% for radio_key, option in field.options %}
+                    <div class="radio form-radio" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>
+                      <label for="{{ field.field_id }}-{{ radio_key }}">
+                        <input type="radio" data-id="{{ field.id }}-{{ radio_key }}" name="{{ field.field_name }}" id="{{ field.field_id }}-{{ radio_key }}" class="{{ field.css_class }}" value="{{ option.value }}" {{ option.status }} {{ field.html_options }} onClick="{{ field.click }}" onChange="{{ field.onchange }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}">
+                        {{ option.label }}
+                      </label>
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+
+                  {# uploader #}
+                  {% if field.html_type == 'uploader' %}
+                    <div class="uploader form-uploader">
+                      <ol id="uploaded-files-{{ field.id }}" class="uploaded-files">
+                        {{ field.file_items|raw }}
+                      </ol>
+                    </div>
+                    <button data-id="{{ field.id }}" id="uploader-button-{{ field.id }}" type="button" class="btn btn-default btn-sm uploader-button {{ field.css_class }}">
+                      Upload <i class="fa fa-download"></i>
+                    </button>
+                  {% endif %}
+
+                  {# button #}
+                  {% if field.html_type == 'button' %}
+                    <input type="button" data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="btn btn-primary {{ field.css_class }}" value="{{ field.def_val }}" {{ field.html_options }} onClick="{{ field.click }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}" {% if field.tooltip %} data-toggle="tooltip" data-placement="bottom" title="{{ field.tooltip }}" {% endif %}>
+                  {% endif %}
+
+                  {# submit #}
+                  {% if field.html_type == 'submit' %}
+                      <input type="submit" data-id="{{ field.id }}" name="{{ field.field_name }}" id="{{ field.field_id }}" class="btn btn-primary {{ field.css_class }} {% if modal %} hide {% endif %}" value="{{ field.def_val }}" {{ field.html_options }} onClick="{{ field.click }}" onFocus="{{ field.focus }}" onBlur="{{ field.blur }}">
+                  {% endif %}
+
+                  {{ field.suffix }}
+
+                </div>
+
+              </div>
+            {% endif %}
+
+          {% endfor %}
+
+          {% if key != 'blank' %}
+          </fieldset>
+          {% endif %}
+
+        {% endfor %}
+
+      </form>
+
+  {% if not(modal) %}
+    </div>
+  </div>
+  {% endif %}
+
+{% endblock %}
+
+{% block submit_button %}
+  <input type="button" class="btn btn-primary" onClick="document.getElementById('{{ form.form_id }}').submit();" value="{{ submit_text }}">
+{% endblock %}

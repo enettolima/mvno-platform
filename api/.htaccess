@@ -1,0 +1,10 @@
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+                Options +FollowSymlinks
+    RewriteEngine On
+    RewriteBase /api
+    RewriteRule ^$ index.php [QSA,L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

@@ -1,0 +1,28 @@
+{
+    "name": "opensourcemind/natural-php",
+    "description": "The Natural PHP Framework",
+    "keywords": ["framework", "php", "natural", "natural-php"],
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Open Source Mind",
+            "email": "devteam@opensourcemind.net",
+            "homepage": "http://www.opensourcemind.net",
+            "role": "Developer"
+        }
+    ],   
+    "require":{
+        "twig\/twig":"1.*",
+        "luracast\/restler":"3.*",
+        "xjtuwangke/passwordhash": "dev-master",
+        "vrana/notorm": "dev-master"
+        },
+    "autoload":{
+        "classmap":[
+                "lib\/classes",
+                "modules\/"
+                ]
+            },
+    "minimum-stability": "dev"
+}

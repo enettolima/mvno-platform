@@ -1,0 +1,69 @@
+<!-- Content header  -->
+<section class="content-header">
+  <h1>
+    {% block page_title %}
+      {{ page_title }}
+    {% endblock %}
+    <small>{% block page_subtitle %} {{ page_subtitle }} {% endblock %}</small>
+  </h1>
+  <h4>{{ form_tips }}</h4>
+  <ol class="breadcrumb {{ hide_button }}">
+    <li class="breadcrumb-home"><a href="javascript:menu_navigation('dashboard_main', 'dashboard_home', 'dashboard')">Dashboard</a></li>
+  </ol>
+</section>
+
+<div class="panel-body table-responsive">
+<!-- Main content -->
+<section>
+<div class="panel panel-default ">
+  <div class="panel-body table-responsive">
+    <form  id="customer_signup_form" name="Customer Sign Up" method="POST" action="/modules/signup/" onsubmit="" class="">
+         <input name="fn" type="hidden" value="signup_form" data-original-title="" title="">
+         <input id="plan_id" name="plan_id" type="hidden" value="0" data-original-title="" title="">
+          <div class="row">
+             {% for plan in plans %}
+                  <div class="col-md-3 text-center">
+                     <div class="panel panel-info panel-pricing">
+                         <div class="panel-heading">
+                             <i class="fa fa-desktop"></i>
+                             <h3>{{plan.label}}</h3>
+                         </div>
+                         <div class="panel-body text-center">
+                             <p><strong>${{plan.price}} / Month</strong></p>
+                         </div>
+                         <ul class="list-group text-center">
+                             <li class="list-group-item"><i class="fa fa-check"></i> Daily API Requests {{plan.requests}}</li>
+                             <li class="list-group-item"><i class="fa fa-check"></i> Storage Quota {{plan.quota}} MB</li>
+                             <li class="list-group-item"><i class="fa fa-check"></i> Store Docs for {{plan.days}} Days</li>
+                             <li class="list-group-item"><i class="fa fa-check"></i> {{plan.templates}} Templates</li>
+                             <li class="list-group-item"><i class="fa fa-check"></i> 0 Free Days</li>
+                         </ul>
+                         <div class="panel-footer">
+                           {% if customer_status == 2 %}
+                                   <button type="button" class="btn btn-primary" onclick="javascript:process_information('customer_plan_signup', 'customer_plan_signup', 'customer', null, 'id|{{plan.id}}', null, null, 'in_modal', null, null, null, null, null)" >
+                                     <i class="fa fa-plus-circle"></i> Sign Up
+                                   </button>
+                           {% else %}
+                               {% if planselected == plan.id %}
+                                   <button type="button" class="btn btn-success" onclick="" >
+                                     <i class="glyphicon glyphicon-ok"></i> Selected
+                                   </button>
+                                   <button type="button" class="btn btn-primary" onclick="javascript:process_information('customer_plan_cancel', 'customer_plan_cancel', 'customer', null, 'id|{{plan.id}}', null, null, 'in_modal', null, null, null, null, null)" >
+                                     <i class="glyphicon glyphicon-trash"></i> Cancel
+                                   </button>
+                               {% else %}
+                                   <button type="button" class="btn btn-primary" onclick="javascript:process_information('customer_plan_change', 'customer_plan_change', 'customer', null, 'id|{{plan.id}}', null, null, 'in_modal', null, null, null, null, null)" >
+                                     <i class="fa fa-plus-circle"></i> Upgrade
+                                   </button>
+                               {% endif %}
+                           {% endif %}
+                         </div>
+                     </div>
+                 </div>
+             {% endfor %}
+          </div>
+         </form>
+  </div>
+</div>
+</section>
+</div>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <title>{{ project_title }}</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link REL="SHORTCUT ICON" href="{{ path_to_theme }}images/favicon.ico">
+
+    <!-- Bootstrap v3.1.1 (http://getbootstrap.com) -->
+    <link href="{{ path_to_theme }}css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Font Awesome -->
+    <link href="{{ path_to_theme }}css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="{{ path_to_theme }}css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Loading -->
+    <link href="{{ path_to_theme }}css/natural-loading.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Notifications -->
+    <link href="{{ path_to_theme }}css/natural-notifications.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Morris Charts -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <!-- Chosen -->
+    <link rel="stylesheet" href="http://harvesthq.github.io/chosen/chosen.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Main CSS -->
+    <link href="{{ path_to_theme }}css/natural-main.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Dashboard Widgets CSS -->
+    <link href="{{ path_to_theme }}css/natural-dashboard.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Colors/Skins CSS -->
+    <link href="{{ path_to_theme }}css/natural-colors.css" media="all" rel="stylesheet" type="text/css">
+    <!-- JQuery UI CSS -->
+    <link href="{{ path_to_theme }}css/jQueryUI/jquery-ui-1.10.3.custom.css" media="all" rel="stylesheet" type="text/css">
+    <!-- Gridstack CSS -->
+    <link href="/lib/js/gridstack/gridstack.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="/lib/js/gridstack/gridstack-extra.min.css" media="all" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Colorpicker 2.3 -->
+    <link href="/lib/js/colorpicker/css/bootstrap-colorpicker.min.css" media="all" rel="stylesheet" type="text/css">
+
+    {% endblock %}
+
+
+  </head>
+
+  <body class="skin-gray {{ page }}">
+
+    <header class="header">
+      {% block header %}
+      <span class="logo">
+        {{ project_title }}
+      </span>
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Button to collapse navigation -->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="fa fa-bars"></i>
+        </a>
+        <!-- Top right navigation -->
+        <div class="navbar-right">
+          <ul class="nav navbar-nav">
+            <!-- <li>More item could be placed here</li> -->
+            {% include 'topnav-user-item.html' %}
+          </ul>
+        </div>
+      </nav>
+      {% endblock %}
+    </header>
+
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+      {% block main %}
+      <!-- Left side -->
+      <aside class="left-side sidebar-offcanvas">
+        <!-- Sidebar -->
+        <section class="sidebar">
+          <!-- Main menu -->
+          {{ menu | raw }}
+        </section>
+      </aside>
+      <!-- Right side -->
+      <aside class="right-side" id="content">
+        {% include 'content.html' %}
+      </aside>
+     {% endblock %}
+    </div>
+
+
+    <!-- Modal -->
+    <div id="modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true"></div>
+
+    <!-- Loading -->
+    <div id="circleG" class="loading">
+      <div id="circleG_1" class="circleG"></div>
+      <div id="circleG_2" class="circleG"></div>
+      <div id="circleG_3" class="circleG"></div>
+    </div>
+
+    {% block footer %}
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery 2.0.2 -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <!-- Rapha�l�JavaScript Library 2.1.0 -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <!-- Chosen -->
+    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <!-- jQuery.history.js -->
+    <script type="text/javascript" src="lib/js/jquery.history.js"></script>
+    <!-- ajaxupload.js -->
+    <script type="text/javascript" src="lib/js/ajaxupload.js"></script>
+    <!-- natural uplader - depends on ajaxupload.js -->
+    <script type="text/javascript" src="lib/js/uploader.js"></script>
+    <!-- Bootstrap v3.1.1 (http://getbootstrap.com) -->
+    <script type="text/javascript" src="{{ path_to_theme }}js/bootstrap.min.js"></script>
+    <!-- Notifications -->
+    <script type="text/javascript" src="{{ path_to_theme }}js/notifications.min.js"></script>
+    <!-- Morris Charts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <!-- JQuery UI -->
+    <!-- <script type="text/javascript" src="{{ path_to_theme }}js/jquery-ui-1.10.3.min.js"></script> -->
+    <script type="text/javascript" src="lib/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/js/validator.min.js"></script>
+    <script type="text/javascript" src="lib/js/datepicker.js"></script>
+    <script type="text/javascript" src="lib/js/typeahead.bundle.js"></script>
+
+    <!-- Natural Controler -->
+    <script type="text/javascript" src="lib/js/controller.js"></script>
+    <!-- Natural Main -->
+    <script type="text/javascript" src="{{ path_to_theme }}js/natural-main.js"></script>
+    <!-- Natural Dashboard JS -->
+    <script type="text/javascript" src="lib/js/dashboard.js"></script>
+
+    <!-- Natural Dashboard JS -->
+    <script type="text/javascript" src="lib/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="lib/js/lodash.min.js"></script>
+    <script type="text/javascript" src="lib/js/gridstack/gridstack.min.js"></script>
+    <script type="text/javascript">build_dashboard();</script>
+
+    <!-- PAGE RELATED PLUGIN(S) -->
+    <!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
+    <script type="text/javascript" src="lib/js/flot/jquery.flot.cust.js"></script>
+    <script type="text/javascript" src="lib/js/flot/jquery.flot.resize.js"></script>
+    <script type="text/javascript" src="lib/js/flot/jquery.flot.fillbetween.min.js"></script>
+    <script type="text/javascript" src="lib/js/flot/jquery.flot.orderBar.js"></script>
+    <script type="text/javascript" src="lib/js/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="lib/js/flot/jquery.flot.tooltip.js"></script>
+
+    <!-- PAGE RELATED PLUGIN(S) -->
+    <!-- Morris Chart Dependencies -->
+    <script type="text/javascript" src="lib/js/morris/raphael.2.1.0.min.js"></script>
+    <script type="text/javascript" src="lib/js/morris/morris.min.js"></script>
+
+    <!-- Bootstrap Colorpicker 2.3 -->
+    <script type="text/javascript" src="lib/js/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+
+    {% endblock %}
+  </body>
+</html>

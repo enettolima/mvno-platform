@@ -1,0 +1,3 @@
+Plugin from:
+
+http://mjolnic.com/fontawesome-iconpicker/
